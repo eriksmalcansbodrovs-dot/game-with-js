@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+
+</head>
+<body>
+    <header>
+        <img src="https://gdetraffic.com/img/news_4497/620x0__image9.png">
+    
+    
+    </header>
+    <main>
+    <h1>Candy Box 3:<p id="mansID">0 Candy</p></h1>
+    <button id="btn">Click me!</button>
+    <button id="upgrade">Coast: 50 (upgrade(+5))</button>
+    </main>
+    <footer>
+        <img src="https://viss.lv/dati/joker_sporta_bars_spelu_zale_leona_paegles_iela_sigulda/logo_joker.jpg">
+    </footer>
+    
+</body>
+
+<script>
+    const elements = document.getElementById("mansID")
+    const btn = document.getElementById("btn")
+    const update = document.getElementById("upgrade")
+
+    let sum = 0
+    let add = 1
+    btn.addEventListener('click', () => {
+        sum += add
+        elements.innerHTML = sum
+        elements.style.color = "red"
+    })
+
+    upgrade.addEventListener('click', () => {
+        if (sum > 50) {
+            sum -= 50
+            add += 4
+            elements.innerHTML = sum
+            update.disabled = true
+            
+        }
+    })
+</script>
+</html>
