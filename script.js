@@ -1,26 +1,33 @@
-let sum = 0
-let add = 1
-let cost = 50
+let sum = 0;
+let add = 1;
+let cost = 50;
+let bonus = 4;
 
-const elements = document.getElementById("balance")
-const btn = document.getElementById("btn")
-const update = document.getElementById("upgrade")
+const balanceElement = document.getElementById("balance");
+const clickBtn = document.getElementById("btn");
+const upgradeBtn = document.getElementById("upgrade");
 
-    
-    btn.addEventListener('click', () => {
-        sum += add
-        elements.innerHTML = sum
-    })
 
-    upgrade.addEventListener('click', () => {
-        if (sum > cost) {
-            sum -= cost;
-            add++
-            cost *= 2;
-            elements.innerHTML = sum
-            update.disabled = true
-            
-        }else{
+clickBtn.addEventListener('click', () => {
+    sum += add;
+    balanceElement.innerHTML = sum;
+});
+
+
+upgradeBtn.addEventListener('click', () => {
+    if (sum >= cost) {
+        sum -= cost;
+        add += bonus;
+        balanceElement.innerHTML = sum;
+
+        upgradeBtn.disabled = true; 
+        upgradeBtn.innerHTML = "Bought";
+        upgradeBtn.style.opacity = "0.5";
+        upgradeBtn.style.cursor = "default";
+        
+        
+    } 
+    else {
         alert("Not enough money for upgrade!");
     }
-    })
+});
