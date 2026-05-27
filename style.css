@@ -4,6 +4,11 @@ body {
     margin: 0;
     flex-direction: column;
     height: 100vh; 
+    background-image: url("https://media.tenor.com/mxPxa9SajYcAAAAe/hamster-happy.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
 }
 
 div {
@@ -101,6 +106,17 @@ button:disabled {
 }
 
 #procent:hover {
+    background-color: #f32121;
+    transform: scale(1.05);
+}
+
+
+#level {
+    background-color: #f32121; 
+    color: white;
+}
+
+#level:hover {
     background-color: #f32121;
     transform: scale(1.05);
 }
