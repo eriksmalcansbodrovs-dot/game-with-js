@@ -51,7 +51,7 @@ button {
     margin: 10px;
     border-radius: 5px;
     background-color: #4caf50;
-    color: black;
+    color: white;
     text-decoration: none;
     transition: all 0.3s ease;
 }
@@ -112,15 +112,26 @@ button:disabled {
 
 
 #level {
-    background-color: #f32121; 
+    background-color: coral; 
     color: white;
 }
 
 #level:hover {
-    background-color: #f32121;
+    
+    background-color: coral;
     transform: scale(1.05);
 }
 
+#rebirth {
+    display: none;
+    background-color:mediumpurple;
+    color: white;
+}
+
+#rebirth:hover {
+    background-color: mediumpurple;
+    transform: scale(1.05);
+}
 
 header img{
     width: 100%;
