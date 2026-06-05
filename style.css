@@ -124,8 +124,11 @@ button:disabled {
 
 #rebirth {
     display: none;
-    background-color:mediumpurple;
+    background-color: mediumpurple;
     color: white;
+    width: 300px;
+    margin: 10px auto;
+    text-align: center;
 }
 
 #rebirth:hover {

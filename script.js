@@ -15,6 +15,9 @@ let cost3 = 1000;
 let rebirth = 10000;
 let rebirthCount = 0;
 
+let levelCost1 = 2000;
+let levelCost2 = 5000;
+
 const balanceElement = document.getElementById("balance");
 const clickBtn = document.getElementById("btn");
 const upgradeBtn = document.getElementById("upgrade");
@@ -24,7 +27,17 @@ const levelBtn = document.getElementById("level");
 const levelText = document.getElementById("level_up");
 const rebirthBtn = document.getElementById("rebirth");
 
-levelBtn.innerHTML = "Level up (2000 coins)";
+function updateProgressionPrices() {
+
+    levelCost1 = 2000 * (rebirthCount + 1);
+    levelCost2 = 5000 * (rebirthCount + 1);
+    rebirth = 10000 * (rebirthCount + 1);
+
+}
+
+updateProgressionPrices();
+
+levelBtn.innerHTML = `Level up (${levelCost1} coins)`;
 
 function scalePrice(price) {
 
@@ -34,7 +47,12 @@ function scalePrice(price) {
 
 function checkRebirth() {
 
-    if (upgradeBtn.disabled && updateBtn.disabled && procentBtn.disabled && level === 3) {
+    if (
+        upgradeBtn.disabled &&
+        updateBtn.disabled &&
+        procentBtn.disabled &&
+        level === 3
+    ) {
 
         rebirthBtn.style.display = "block";
 
@@ -44,25 +62,34 @@ function checkRebirth() {
 
 function updateShop() {
 
-    upgradeBtn.innerHTML =
-        `Cost: ${cost1} coins (upgrade +5 coins)`;
+    upgradeBtn.innerHTML = `Cost: ${cost1} coins (upgrade +5 coins)`;
+    updateBtn.innerHTML = `Cost: ${cost2} coins (upgrade +15 coins)`;
+    procentBtn.innerHTML = `Cost: ${cost3} coins (upgrade +30% coins)`;
 
-    updateBtn.innerHTML =
-        `Cost: ${cost2} coins (upgrade +15 coins)`;
+    if (level === 1) {
 
-    procentBtn.innerHTML =
-        `Cost: ${cost3} coins (upgrade +30% coins)`;
+        levelBtn.innerHTML = `Level up (${levelCost1} coins)`;
+
+    }
+
+    if (level === 2) {
+
+        levelBtn.innerHTML = `Level up (${levelCost2} coins)`;
+
+    }
+
+    rebirthBtn.innerHTML = `Rebirth (Cost: ${rebirth} | Bonus: x${rebirthCount + 1})`;
 
 }
 
-clickBtn.addEventListener('click', () => {
+clickBtn.addEventListener("click", () => {
 
     sum += add;
     balanceElement.innerHTML = sum;
 
 });
 
-upgradeBtn.addEventListener('click', () => {
+upgradeBtn.addEventListener("click", () => {
 
     if (sum >= cost1) {
 
@@ -84,7 +111,7 @@ upgradeBtn.addEventListener('click', () => {
 
 });
 
-updateBtn.addEventListener('click', () => {
+updateBtn.addEventListener("click", () => {
 
     if (sum >= cost2) {
 
@@ -106,7 +133,7 @@ updateBtn.addEventListener('click', () => {
 
 });
 
-procentBtn.addEventListener('click', () => {
+procentBtn.addEventListener("click", () => {
 
     if (sum >= cost3) {
 
@@ -128,8 +155,9 @@ procentBtn.addEventListener('click', () => {
 
 });
 
-levelBtn.addEventListener('click', () => {
-    if (level === 1 && sum >= 2000) {
+levelBtn.addEventListener("click", () => {
+
+    if (level === 1 && sum >= levelCost1) {
 
         sum = 0;
         level = 2;
@@ -140,8 +168,9 @@ levelBtn.addEventListener('click', () => {
         cost2 = scalePrice(1000);
         cost3 = scalePrice(3000);
 
-        levelText.innerHTML = "LEVEL 2 | REBIRTH ${rebirthCount}";
-        levelBtn.innerHTML = "Level up (5000 coins)";
+        levelText.innerHTML = `LEVEL 2 | REBIRTH ${rebirthCount}`;
+
+        levelBtn.innerHTML = `Level up (${levelCost2} coins)`;
 
         upgradeBtn.disabled = false;
         updateBtn.disabled = false;
@@ -154,21 +183,19 @@ levelBtn.addEventListener('click', () => {
         alert("Welcome to LEVEL 2!");
 
     }
-    else if (level === 2 && sum >= 5000) {
+
+    else if (level === 2 && sum >= levelCost2) {
 
         sum = 0;
-
         level = 3;
-
         add = Math.max(1, add - 10);
-
         minus = 5;
 
         cost1 = scalePrice(750);
         cost2 = scalePrice(3500);
         cost3 = scalePrice(6000);
 
-        levelText.innerHTML = "LEVEL 3 | REBIRTH ${rebirthCount}";
+        levelText.innerHTML = `LEVEL 3 | REBIRTH ${rebirthCount}`;
 
         upgradeBtn.disabled = false;
         updateBtn.disabled = false;
@@ -195,17 +222,16 @@ levelBtn.addEventListener('click', () => {
 
 });
 
-rebirthBtn.addEventListener('click', () => {
+rebirthBtn.addEventListener("click", () => {
 
     if (sum >= rebirth) {
 
         rebirthCount++;
-        rebirth = rebirth * 2;
 
-        rebirthBtn.innerHTML = `Rebirth (Cost: ${rebirth} Bonus: x${rebirthCount + 1})`;
+        updateProgressionPrices();
 
         sum = 0;
-        level = 1
+        level = 1;
         minus = 1 + rebirthCount;
         add = 1 + rebirthCount * 2;
 
@@ -220,11 +246,10 @@ rebirthBtn.addEventListener('click', () => {
         updateShop();
 
         levelBtn.disabled = false;
-        levelBtn.innerHTML = "Level up (2000 coins)";
+        levelBtn.innerHTML = `Level up (${levelCost1} coins)`;
         levelText.innerHTML = `LEVEL 1 | REBIRTH ${rebirthCount}`;
 
         balanceElement.innerHTML = sum;
-
         rebirthBtn.style.display = "none";
 
         alert(`REBIRTH ${rebirthCount} SUCCESS!`);
